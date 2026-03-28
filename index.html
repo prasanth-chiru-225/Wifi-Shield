@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFiShield - Public Wi-Fi Security Analyzer</title>
+    <meta name="description" content="A futuristic, state-of-the-art public Wi-Fi security analyzer dashboard.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Orbitron:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="logo">
+            <i class="fa-solid fa-shield-halved gradient-text"></i>
+            <span class="gradient-text">WiFiShield</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#analyzer" class="nav-item">Analyzer</a></li>
+            <li><a href="#threats" class="nav-item">Threats</a></li>
+            <li><a href="#tips" class="nav-item">Tips</a></li>
+            <li><a href="#education" class="nav-item">Learn</a></li>
+            <li><a href="#stats" class="nav-item">Global Stats</a></li>
+        </ul>
+        <button class="menu-btn"><i class="fa-solid fa-bars"></i></button>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content" data-aos="fade-up">
+            <div class="badge glow-badge">System Active</div>
+            <h1 class="main-title">
+                Secure Your <br />
+                <span class="gradient-text neon-pulse">Digital Presence</span>
+            </h1>
+            <p class="hero-subtitle">
+                Advanced real-time vulnerability detection for public, home, and corporate networks. Don't let your data
+                be intercepted.
+            </p>
+            <a href="#analyzer" class="btn btn-primary pulse-btn">
+                <span>Start Security Check</span>
+                <i class="fa-solid fa-radar"></i>
+            </a>
+        </div>
+        <div class="hero-visual" data-aos="fade-in">
+            <div class="radar-container">
+                <div class="radar"></div>
+                <div class="radar-sweep"></div>
+                <div class="radar-target target-1"></div>
+                <div class="radar-target target-2"></div>
+                <div class="radar-target target-3"></div>
+                <i class="fa-solid fa-wifi center-icon"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Demo Networks Section -->
+    <section class="section pt-0">
+        <div class="demo-networks glass-card quick-actions">
+            <h4><i class="fa-solid fa-bolt gradient-text-alt"></i> Quick Demo Networks</h4>
+            <div class="demo-buttons">
+                <button class="btn btn-demo" id="demo-coffee"><i class="fa-solid fa-mug-hot"></i> Coffee Shop
+                    Wi-Fi</button>
+                <button class="btn btn-demo" id="demo-airport"><i class="fa-solid fa-plane"></i> Airport Free
+                    Wi-Fi</button>
+                <button class="btn btn-demo" id="demo-home"><i class="fa-solid fa-house-signal"></i> Home Secure
+                    Wi-Fi</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Checker Section -->
+    <section id="analyzer" class="section glass-section">
+        <div class="section-header text-center">
+            <h2 class="section-title">Network <span class="gradient-text-alt">Analyzer</span></h2>
+            <p>Input your current Wi-Fi connection details to evaluate potential security risks.</p>
+        </div>
+
+        <div class="analyzer-container">
+            <!-- Form Area -->
+            <div class="glass-card form-card">
+                <form id="security-form">
+                    <div class="form-group">
+                        <label for="network-type"><i class="fa-solid fa-network-wired"></i> Network Environment</label>
+                        <div class="custom-select">
+                            <select id="network-type" required>
+                                <option value="" disabled selected>Select network type</option>
+                                <option value="home">Home Network (Private)</option>
+                                <option value="corporate">Corporate Network</option>
+                                <option value="public">Public Wi-Fi (Cafe, Mall)</option>
+                                <option value="airport">Airport / Hotel Wi-Fi</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="encryption-type"><i class="fa-solid fa-lock"></i> Encryption Standard</label>
+                        <div class="custom-select">
+                            <select id="encryption-type" required>
+                                <option value="" disabled selected>Select encryption</option>
+                                <option value="wpa3">WPA3 (Latest)</option>
+                                <option value="wpa2">WPA2 (Standard)</option>
+                                <option value="wep">WEP (Outdated)</option>
+                                <option value="none">Open / No Encryption</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password-strength"><i class="fa-solid fa-key"></i> Connection Authentication</label>
+                        <div class="custom-select">
+                            <select id="password-strength" required>
+                                <option value="" disabled selected>Select authentication</option>
+                                <option value="strong">Strong Password / Enterprise Auth</option>
+                                <option value="medium">Medium Password</option>
+                                <option value="weak">Weak / Common Password</option>
+                                <option value="none">No Password Required</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-block btn-analyze">
+                        <span class="btn-text">Analyze Network Risk</span>
+                        <div class="loader hidden"></div>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Results Dashboard Area (Hidden initially) -->
+            <div id="results-dashboard" class="glass-card results-card hidden">
+                <div class="dashboard-header">
+                    <h3>Diagnostic Report</h3>
+                    <span class="status-badge" id="overall-status">Analyzing...</span>
+                </div>
+
+                <div class="meter-container">
+                    <div class="circular-progress">
+                        <div class="value-container">0%</div>
+                    </div>
+                </div>
+
+                <!-- NEW: Dashboard Detailed Bars -->
+                <div class="dashboard-metrics hidden" id="dashboard-metrics">
+                    <div class="stat-bar-group metric-bar">
+                        <div class="stat-info"><span>Encryption Strength</span> <span id="metric-enc">0/10</span></div>
+                        <div class="progress-track" id="track-enc" style="--percent: 0%; --color: var(--warning)"></div>
+                    </div>
+                    <div class="stat-bar-group metric-bar">
+                        <div class="stat-info"><span>Password Strength</span> <span id="metric-pass">0/10</span></div>
+                        <div class="progress-track" id="track-pass" style="--percent: 0%; --color: var(--danger)"></div>
+                    </div>
+                    <div class="stat-bar-group metric-bar">
+                        <div class="stat-info"><span>Attack Risk</span> <span id="metric-risk">0/10</span></div>
+                        <div class="progress-track" id="track-risk" style="--percent: 0%; --color: var(--glow-blue)">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="risk-details">
+                    <h4 id="risk-level-text">Risk Level: Unknown</h4>
+                    <p id="risk-description">Please run the analyzer to see results.</p>
+
+                    <div class="vulnerability-list">
+                        <h4><i class="fa-solid fa-bug"></i> Identified Vulnerabilities:</h4>
+                        <ul id="vuln-items">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+
+                    <div class="action-plan hidden" id="action-plan">
+                        <h4><i class="fa-solid fa-clipboard-check"></i> Personalized Action Plan:</h4>
+                        <ul id="suggestion-items">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Threats Section -->
+    <section id="threats" class="section">
+        <div class="section-header text-center">
+            <h2 class="section-title">Active <span class="gradient-text-red">Cyber Threats</span></h2>
+            <p>Common attacks executed on vulnerable public networks.</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="threat-card glass-card hover-glow-red">
+                <div class="card-icon"><i class="fa-solid fa-people-arrows"></i></div>
+                <h3>Man-in-the-Middle</h3>
+                <p>Hackers intercept communication between your device and the router to steal passwords and session
+                    cookies.</p>
+            </div>
+            <div class="threat-card glass-card hover-glow-purple">
+                <div class="card-icon"><i class="fa-solid fa-tower-broadcast"></i></div>
+                <h3>Packet Sniffing</h3>
+                <p>Attackers capture unencrypted data packets transmitted over the air, extracting sensitive
+                    information.</p>
+            </div>
+            <div class="threat-card glass-card hover-glow-red">
+                <div class="card-icon"><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-skull fake-ap-skull"></i>
+                </div>
+                <h3>Fake Access Point</h3>
+                <p>A rogue access point disguised as a legitimate Wi-Fi network to trick users into connecting.</p>
+            </div>
+            <div class="threat-card glass-card hover-glow-purple">
+                <div class="card-icon"><i class="fa-solid fa-mask"></i></div>
+                <h3>Session Hijacking</h3>
+                <p>Attackers steal your active login sessions on unencrypted networks to impersonate you on sensitive
+                    websites.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section id="tips" class="section glass-section">
+        <div class="section-header text-center">
+            <h2 class="section-title">Defense <span class="gradient-text-alt">Protocols</span></h2>
+            <p>Implement these practices to stay secure on untrusted networks.</p>
+        </div>
+
+        <div class="tips-grid">
+            <div class="tip-item">
+                <div class="tip-icon"><i class="fa-solid fa-shield-virus"></i></div>
+                <div class="tip-content">
+                    <h4>Always Use a VPN</h4>
+                    <p>A Virtual Private Network encrypts your entire traffic pipeline, hiding data from local sniffers.
+                    </p>
+                </div>
+            </div>
+            <div class="tip-item">
+                <div class="tip-icon"><i class="fa-solid fa-lock"></i></div>
+                <div class="tip-content">
+                    <h4>Force HTTPS</h4>
+                    <p>Ensure websites use HTTPS. Avoid sending credentials over standard HTTP connections.</p>
+                </div>
+            </div>
+            <div class="tip-item">
+                <div class="tip-icon"><i class="fa-solid fa-building-columns"></i></div>
+                <div class="tip-content">
+                    <h4>Zero Banking on Public Wi-Fi</h4>
+                    <p>Never access financial institutions or process payments on public or hotel networks.</p>
+                </div>
+            </div>
+            <div class="tip-item">
+                <div class="tip-icon"><i class="fa-solid fa-toggle-off"></i></div>
+                <div class="tip-content">
+                    <h4>Disable Auto-Connect</h4>
+                    <p>Prevent your device from automatically joining open networks to avoid "Evil Twin" traps.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Educational Section -->
+    <section id="education" class="section">
+        <div class="section-header text-center">
+            <h2 class="section-title">Knowledge <span class="gradient-text">Base</span></h2>
+            <p>Understanding the fundamental concepts of network security.</p>
+        </div>
+
+        <div class="edu-grid">
+            <div class="edu-card glass-card">
+                <i class="fa-solid fa-network-wired edu-icon"></i>
+                <h3>What is Public Wi-Fi?</h3>
+                <p>Public Wi-Fi refers to free, unencrypted wireless networks commonly found in coffee shops, airports,
+                    and hotels. Because they are designed for easy access, they lack the security protocols necessary to
+                    protect connected devices from unauthorized monitoring.</p>
+            </div>
+            <div class="edu-card glass-card">
+                <i class="fa-solid fa-triangle-exclamation edu-icon"></i>
+                <h3>Why is it Dangerous?</h3>
+                <p>By default, data transmitted over open public networks is not encrypted. This means any other device
+                    on the same local network can easily intercept and read your communications, including plain text
+                    passwords, session tokens, and personal messages.</p>
+            </div>
+            <div class="edu-card glass-card">
+                <i class="fa-solid fa-mask edu-icon"></i>
+                <h3>How Hackers Steal Data</h3>
+                <p>Cybercriminals use automated tools on public networks to execute packet sniffing and spoofing
+                    attacks. By positioning themselves logically between your device and the router, they can secretly
+                    read and modify all unencrypted data passing through.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Network Information Section -->
+    <section class="section glass-section">
+        <div class="section-header text-center">
+            <h2 class="section-title">Client <span class="gradient-text">Fingerprint</span></h2>
+            <p>Your current device is continuously transmitting this metadata to the network.</p>
+        </div>
+
+        <div class="network-info-grid">
+            <div class="info-box glass-card text-center">
+                <i class="fa-solid fa-globe gradient-text"></i>
+                <h5>Public IP Address</h5>
+                <h3 id="client-ip">Detecting...</h3>
+            </div>
+            <div class="info-box glass-card text-center">
+                <i class="fa-brands fa-chrome gradient-text-alt"></i>
+                <h5>Browser</h5>
+                <h3 id="client-browser">Detecting...</h3>
+            </div>
+            <div class="info-box glass-card text-center">
+                <i class="fa-solid fa-laptop-code gradient-text-red"></i>
+                <h5>Operating System</h5>
+                <h3 id="client-os">Detecting...</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="section">
+        <div class="section-header text-center">
+            <h2 class="section-title">Global <span class="gradient-text">Telemetry</span></h2>
+            <p>Real-world data highlighting the severity of unsecured networks.</p>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-bar-group">
+                <div class="stat-info">
+                    <span>Public hotspots without encryption</span>
+                    <span>24%</span>
+                </div>
+                <div class="progress-track" style="--percent: 24%; --color: var(--danger)"></div>
+            </div>
+
+            <div class="stat-bar-group">
+                <div class="stat-info">
+                    <span>Users who check bank accounts on public Wi-Fi</span>
+                    <span>48%</span>
+                </div>
+                <div class="progress-track" style="--percent: 48%; --color: var(--warning)"></div>
+            </div>
+
+            <div class="stat-bar-group">
+                <div class="stat-info">
+                    <span>Malware incidents originating from public networks</span>
+                    <span>35%</span>
+                </div>
+                <div class="progress-track" style="--percent: 35%; --color: var(--glow-purple)"></div>
+            </div>
+
+            <div class="stat-bar-group">
+                <div class="stat-info">
+                    <span>Data breaches involving compromised credentials</span>
+                    <span>81%</span>
+                </div>
+                <div class="progress-track" style="--percent: 81%; --color: var(--danger)"></div>
+            </div>
+        </div>
+
+        <!-- Did You Know? -->
+        <div class="facts-box glass-card mt-5 text-center">
+            <h3><i class="fa-solid fa-lightbulb gradient-text"></i> Did You Know?</h3>
+            <p>"60% of public Wi-Fi networks in major cities are not fully encrypted, exposing millions of users daily
+                to packet sniffing."</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="glass-footer">
+        <div class="disclaimer text-center">
+            <p><i class="fa-solid fa-circle-info"></i> <strong>Important Disclaimer:</strong> Due to browser security
+                restrictions, websites cannot directly scan nearby Wi-Fi networks at the physical layer. This tool
+                simulates risk analysis based on user-provided parameters to demonstrate cybersecurity principles.</p>
+        </div>
+        <div class="footer-content mt-3">
+            <div class="footer-brand">
+                <h2><i class="fa-solid fa-shield-halved"></i> WiFiShield</h2>
+                <div class="cyber-note">Awareness is the first layer of security. Stay protected.</div>
+            </div>
+            <div class="footer-links">
+                <a href="#"><i class="fa-brands fa-github"></i> Source Code</a>
+                <a href="#"><i class="fa-solid fa-envelope"></i> Report Vulnerability</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 WiFiShield Security Analytics. Pure HTML/CSS/JS Implementation.
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
