@@ -23,4 +23,4 @@ jobs:
         run: npm install --global vercel@latest
 
       - name: Deploy to Vercel
-        run: vercel deploy --prod --yes --scope=prasanth-chiru-225 --logs --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --prod --yes --scope=prasanth-chiru-225 --name wifi-shield --logs --token=${{ secrets.VERCEL_TOKEN }}
